@@ -3,22 +3,18 @@ const { sendEmail } = require("../../../services/email");
 const jwt = require("jsonwebtoken");
 const bycrpt = require("bcryptjs");
 const reset = async (req, res) => {
-  try {
-    const { email } = req.body;
+  const { email } = req.body;
 
-    const User = await userModel.findOne({ email });
-    if (!User) {
-      res.json({ message: "email doesn't exist" });
-    } else {
-      const token = jwt.sign({ email }, process.env.tokensignature3, { expiresIn: "1h" });
-      const link = `https://agile-spire-92692.herokuapp.com/reset-password/${token}`;
+  const User = await userModel.findOne({ email });
+  if (!User) {
+    res.json({ message: "email doesn't exist" });
+  } else {
+    const token = jwt.sign({ email }, process.env.tokensignature3, { expiresIn: "1h" });
+    const link = `https://agile-spire-92692.herokuapp.com/reset-password/${token}`;
 
-      const message = `<a href="${link}">click me to reset password</a>`;
-      sendEmail(email, message);
-      res.json({ message: "Done" });
-    }
-  } catch (error) {
-    res.json({ message: "catch error", error });
+    const message = `<a href="${link}">click me to reset password</a>`;
+    sendEmail(email, message);
+    res.json({ message: "Done" });
   }
 };
 const resetPassword = async (req, res) => {
