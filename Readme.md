@@ -1,6 +1,6 @@
 feel free to check deployed version :)
 
-https://saraha.netlify.app
+https://saraha.vercel.app/
 
 email: wopa23@gmail.com password: Te@123456
 
